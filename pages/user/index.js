@@ -37,7 +37,7 @@ const UserIndex= () => {
     <UserRoute>
         {loading && (<SyncOutlined spin className="d-flex justify-content-center display-1 text-danger p-5"/>)}
         <h1 className="jumbotron text-center square ">
-            user dashboard
+            Profil
         </h1>
         {/* <pre>{JSON.stringify(courses,null,4)}</pre> */}
         {/* Show list of courses*/}

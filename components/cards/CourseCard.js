@@ -5,17 +5,27 @@ const {Meta} = Card
 
 const CourseCard = ({course}) => {
     const{name,instructor,price,image,slug,paid,category}= course
+    const imageUrl = image && image.Location;
     return (
         <Link href={`/course/${slug}`} >
-                <Card 
-                className="mb-4 dark-theme-hover"
-                cover={
-                    <img 
-                    src={image.Location} 
-                    alt={name} 
-                    style={{height:'200px',objectFit: "cover",borderRadius:"10px"}}
-                    ></img>
-                }>
+                      <Card
+        className="mb-4 dark-theme-hover"
+        cover={
+          imageUrl ? (
+            <img
+              src={imageUrl}
+              alt={name}
+              style={{ height: '200px', objectFit: 'cover', borderRadius: '10px' }}
+            ></img>
+          ) : (
+            <img
+            src={"/course.png"}
+            alt={name}
+            style={{ height: '200px', objectFit: 'contain', borderRadius: '10px' }}
+          ></img>
+          )
+        }
+      >
                     <h3 className="font-weight-bold">{name}</h3>
                     <p style={{ textTransform:"capitalize"}}>{instructor.name}</p>
                     <Badge count={category} style={{ backgroundColor: 'blue', color: '#FFFFFF',borderColor: "blue" }}></Badge>

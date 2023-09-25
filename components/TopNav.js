@@ -3,13 +3,14 @@ import {Menu} from 'antd';
 import Link from 'next/link';
 import {AppstoreOutlined,
     CoffeeOutlined,
-LoginOutlined, LogoutOutlined, UserAddOutlined,CarryOutOutlined,TeamOutlined } from '@ant-design/icons';
+LoginOutlined, LogoutOutlined, UserAddOutlined,CarryOutOutlined,TeamOutlined ,HomeOutlined} from '@ant-design/icons';
 import {Context} from "../context";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import {useRouter} from "next/router"
 import SearchBar from './SearchBar';
 import { useSearch } from '../context/SearchContext';
+import Home from '../pages/Home';
 const {Item,SubMenu,ItemGroup} = Menu; 
 
 const TopNav = () => {
@@ -38,30 +39,37 @@ const TopNav = () => {
 
     return (
         <Menu theme="dark" mode="horizontal" selectedKeys={[current]} className='mb-2'>
+
+        <Item key="/Home" onClick={e => setCurrent(e.key)} icon={<HomeOutlined/>}>
+            <Link href="/Home" legacyBehavior>
+            <a>Home</a>
+            </Link>
+        </Item>
         {user !== null &&  <Item key="/" onClick={e => setCurrent(e.key)} icon={<AppstoreOutlined />}>
             <Link href="/" legacyBehavior>
-            <a>RapydLearn</a>
+            <a>Boutique</a>
             </Link>
         </Item>}
         
-        
-        {user && user.role && user.role.includes("Instructor") ? (
-
+    
+        {user && (
+        <>
+        {user.role && user.role.includes("Instructor") ? (
             <Item key="/instructor/course/create" onClick={e => setCurrent(e.key)} icon={<CarryOutOutlined />}>
                 <Link href="/instructor/course/create" legacyBehavior>
                     Create Course 
                 </Link>
             </Item>
-
         ) : (
-
             <Item key="/user/become-instructor" onClick={e => setCurrent(e.key)} icon={<TeamOutlined />}>
                 <Link href="/user/become-instructor" legacyBehavior>
                     Become Instructor 
                 </Link>
             </Item>
-            
         )}
+        </>
+    )}
+    
         <Item style={{width:'800px', marginLeft:"15%"}} className='itemsearchbar'>
             <SearchBar onSearch={handleSearch} />
         </Item>

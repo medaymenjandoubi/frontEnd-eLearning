@@ -76,5 +76,37 @@
     padding: 0;
 }
 
+.dark-themee-hover:hover {
+  background-color: #ccccff; /* Change to the dark background color you prefer */
+  color: #fff; /* Change to the default text color you prefer */
+  transition: background-color 0.3s, color 0.3s; /* Add a smooth transition effect */
+}
+.dark-themee-hover:hover * {
+  color: black;
+}
+.list-group-item:hover {
+  background-color: purple;
+  color: white; /* Change text color to white on hover */
+}
+
   
-  
+.carousel-container {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.5); /* Adjust the background color as needed */
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.custom-arrow:hover {
+  background-color: rgba(255, 255, 255, 0.8); /* Adjust the hover background color as needed */
+}
+
