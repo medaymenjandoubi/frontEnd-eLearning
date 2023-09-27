@@ -3,7 +3,7 @@ import {Menu} from 'antd';
 import Link from 'next/link';
 import {AppstoreOutlined,
     CoffeeOutlined,
-LoginOutlined, LogoutOutlined, UserAddOutlined,CarryOutOutlined,TeamOutlined ,HomeOutlined} from '@ant-design/icons';
+LoginOutlined, LogoutOutlined, UserAddOutlined,CarryOutOutlined,TeamOutlined ,HomeOutlined,ContainerOutlined} from '@ant-design/icons';
 import {Context} from "../context";
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -50,8 +50,6 @@ const TopNav = () => {
             <a>Boutique</a>
             </Link>
         </Item>}
-        
-    
         {user && (
         <>
         {user.role && user.role.includes("Instructor") ? (
@@ -69,6 +67,11 @@ const TopNav = () => {
         )}
         </>
     )}
+        <Item key="/Conditions" onClick={e => setCurrent(e.key)} icon={<ContainerOutlined/>}>
+            <Link href="/Conditions" legacyBehavior>
+            <a>Conditions Generales</a>
+            </Link>
+        </Item>
     
         <Item style={{width:'800px', marginLeft:"15%"}} className='itemsearchbar'>
             <SearchBar onSearch={handleSearch} />
