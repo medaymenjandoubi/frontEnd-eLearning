@@ -73,17 +73,19 @@ const TopNav = () => {
             </Link>
         </Item>
     
-        <Item style={{width:'800px', marginLeft:"15%"}} className='itemsearchbar'>
-            <SearchBar onSearch={handleSearch} />
-        </Item>
+        {router.pathname === '/' && (
+            <Item style={{ width: '35%' }} className='itemsearchbar'>
+                <SearchBar onSearch={handleSearch} />
+            </Item>
+        )}
         {user === null && (
             <>
-            <Item key="/login" onClick={e => setCurrent(e.key)} icon={<LoginOutlined />}>
+            <Item key="/login" onClick={e => setCurrent(e.key)} icon={<LoginOutlined />} className='float-end'>
                 <Link href="/login" legacyBehavior>
                 <a>Login</a>
                 </Link>
             </Item>
-            <Item key="/register" onClick={e => setCurrent(e.key)} icon={<UserAddOutlined />}>
+            <Item key="/register" onClick={e => setCurrent(e.key)} icon={<UserAddOutlined />} className='float-end'>
                 <Link href="/register" legacyBehavior>
                 <a>Register</a>
                 </Link>
