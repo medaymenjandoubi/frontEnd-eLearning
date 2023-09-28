@@ -3,11 +3,31 @@ import axios from "axios";
 import CourseCard from "../components/cards/CourseCard";
 import { useSearch } from "../context/SearchContext";
 
-const Index = ({ courses }) => {
+const Index = () => {
   const { searchQuery } = useSearch();
-  const filteredCourses = courses.filter((course) =>
-    course.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const [courses, setCourses] = useState([]);
+
+  // Fonction asynchrone pour charger les données des cours
+  const loadCourses = async () => {
+    try {
+      const response = await axios.get(`/api/courses`);
+      setCourses(response.data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données des cours :", error);
+    }
+  };
+
+  useEffect(() => {
+    // Appel de la fonction asynchrone pour charger les données des cours
+    loadCourses();
+  }, []);
+
+  // Utilisation de filteredCourses uniquement lorsque courses est valide
+  const filteredCourses = courses.length > 0
+    ? courses.filter((course) =>
+        course.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
 
   return (
     <>
@@ -26,14 +46,5 @@ const Index = ({ courses }) => {
     </>
   );
 };
-
-export async function getServerSideProps() {
-  const { data } = await axios.get(`${process.env.API}/courses`);
-  return {
-    props: {
-      courses: data,
-    },
-  };
-}
 
 export default Index;
