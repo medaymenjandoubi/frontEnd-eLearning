@@ -16,8 +16,9 @@ const SingleCourseJumbotron =({
   enrolled,
   setEnrolled,
 }) => {
+
 //course props destructure 
-  const { name,
+    const { name,
      description,
       instructor,
        updatedAt,

@@ -11,7 +11,7 @@ import { Context } from "../../context";
 import { toast } from "react-toastify";
 import { loadStripe } from "@stripe/stripe-js";
 
-const SingleCourse = ({ course }) => {
+const SingleCourse = () => {
   // router initialization
   const router = useRouter();
   //slug initialization
@@ -23,6 +23,23 @@ const SingleCourse = ({ course }) => {
   const [showModal,setShowModal] = useState(false)
   const [loading,setLoading] = useState(false)
   const [enrolled,setEnrolled] = useState()
+  const [course, setCourse] = useState();
+
+  // Fonction asynchrone pour charger les données des cours
+  const loadCourses = async () => {
+    try {
+      const response = await axios.get(`/api/course/${slug}`);
+      setCourse(response.data);
+      console.log(course)
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données des cours :", error);
+    }
+  };
+
+  useEffect(() => {
+    // Appel de la fonction asynchrone pour charger les données des cours
+    loadCourses();
+  }, []);
 
   useEffect(()=> {
       if (user && course) checkEnrollment()
@@ -79,7 +96,8 @@ const SingleCourse = ({ course }) => {
 
   return (
     <div>
-        <SingleCourseJumbotron 
+
+      {course && (<SingleCourseJumbotron 
         course={course} 
         showModal={showModal} 
         setShowModal={setShowModal} 
@@ -90,13 +108,13 @@ const SingleCourse = ({ course }) => {
         handleFreeEnrollment={handleFreeEnrollment}
         handlePaidEnrollment={handlePaidEnrollment}
         enrolled={enrolled}
-        setEnrolled={setEnrolled}/>
+        setEnrolled={setEnrolled}/>)}  
 
       <PreviewModal 
         showModal={showModal} 
         setShowModal={setShowModal} 
         preview={preview}/>
-        {course.lessons && (<SingleCourseLesson 
+        {course && course.lessons && (<SingleCourseLesson 
         lessons={course.lessons} 
         setPreview={setPreview}
         showModal={showModal}
@@ -104,14 +122,5 @@ const SingleCourse = ({ course }) => {
     </div>
   );
 };
-
-export async function getServerSideProps({ query }) {
-  const { data } = await axios.get(`${process.env.API}/course/${query.slug}`);
-  return {
-    props: {
-      course: data,
-    },
-  };
-}
 
 export default SingleCourse;
