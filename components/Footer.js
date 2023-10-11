@@ -35,7 +35,7 @@ const AppFooter = () => {
         </div>
         <div className="row">
           <div className="col-md-12">
-            <p>&copy; {new Date().getFullYear()} RapydLearn SIRET N°94908812400019. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} RapydLearn. All rights reserved.</p>
           </div>
         </div>
       </div>
